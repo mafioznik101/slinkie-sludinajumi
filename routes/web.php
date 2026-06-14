@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', fn() => redirect()->route('posts.index'));
 
@@ -18,3 +19,8 @@ Route::middleware('auth')->post('/logout', [AuthController::class, 'logout'])->n
 
 Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
 Route::resource('posts', PostController::class);
+
+Route::middleware('auth')->group(function () {
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+});

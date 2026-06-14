@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
-#[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
@@ -22,6 +20,27 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
+	 protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isRegularUser(): bool
+    {
+        return $this->role === 'user';
+    }
     protected function casts(): array
     {
         return [
@@ -29,8 +48,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-	/*relationships: 
-	*/
 		public function posts()
 	{
 		return $this->hasMany(Post::class);

@@ -11,13 +11,31 @@ MYSQL 8.2.0 3306 <br>
 NGINX 1.25.3 80, 443 <br>
 PHP 8.3.1 830 <br>
 
+cd C:\wamp64\www <br>
+git clone https://github.com/mafioznik101/slinkie-sludinajumi.git <br>
+cd slinkie-sludinajumi <br>
+composer install <br>
 cp .env.example .env <br>
+← pielabot .env (DB_CONNECTION=mysql, DB_DATABASE=slinkie, DB_USERNAME=root, DB_PASSWORD=) <br>
+← phpMyAdmin → izveidot tukšu datubāzi "slinkie" <br>
 php artisan key:generate <br>
 php artisan migrate --seed <br>
 php artisan storage:link <br>
+npm install <br>
 npm run build <br>
-php artisan serve <br>
 
+DB_CONNECTION=mysql <br>
+DB_HOST=127.0.0.1 <br>
+DB_PORT=3306 <br>
+DB_DATABASE=slinkie <br>
+DB_USERNAME=root <br>
+DB_PASSWORD= <br>
+
+1. Izpako uz C:\wamp64\www\ <br>
+2. Pielabo .env → DB_DATABASE, DB_PASSWORD ja vajag <br>
+3. php artisan migrate --seed <br>
+4. php artisan storage:link <br>
+5. php artisan serve <br>
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

@@ -48,4 +48,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::post('/users/{user}/block', [AdminController::class, 'blockUser'])->name('blockUser');
     Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('destroyUser');
     Route::delete('/posts/{post}', [AdminController::class, 'destroyPost'])->name('destroyPost');
+	Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
+	Route::resource('posts', PostController::class)->middlewareFor(
+		['create', 'store', 'edit', 'update', 'destroy'],
+		'auth'
+	);
 });

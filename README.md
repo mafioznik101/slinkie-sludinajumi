@@ -7,16 +7,16 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-MYSQL 8.2.0 3306
-NGINX 1.25.3 80, 443
-PHP 8.3.1 830
+MYSQL 8.2.0 3306 <br>
+NGINX 1.25.3 80, 443 <br>
+PHP 8.3.1 830 <br>
 
-cp .env.example .env
-php artisan key:generate
-php artisan migrate --seed
-php artisan storage:link
-npm run build
-php artisan serve
+cp .env.example .env <br>
+php artisan key:generate <br>
+php artisan migrate --seed <br>
+php artisan storage:link <br>
+npm run build <br>
+php artisan serve <br>
 
 ## License
 

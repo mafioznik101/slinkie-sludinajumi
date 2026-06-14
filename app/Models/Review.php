@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    protected $fillable = ['user_id', 'profile_id', 'rating', 'content'];
+		protected $fillable = ['reviewer_id', 'user_id', 'rating', 'content'];
 
-	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
+		public function reviewer()
+		{
+			return $this->belongsTo(User::class, 'reviewer_id');
+		}
 
-	public function profile()
-	{
-		return $this->belongsTo(Profile::class);
-	}
+		public function user()
+		{
+			return $this->belongsTo(User::class, 'user_id');
+		}
 }

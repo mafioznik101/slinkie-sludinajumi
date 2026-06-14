@@ -21,17 +21,19 @@ class DatabaseSeeder extends Seeder
         $dizains = Category::create(['name' => 'Dizains']);
         $programmesana = Category::create(['name' => 'Programmēšana']);
 
-        $admin = User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('adminpassword'),
-        ]);
+		$admin = User::create([
+			'name'     => 'Admin User',
+			'email'    => 'admin@example.com',
+			'password' => bcrypt('adminpassword'),
+			'role'     => 'admin',   // ← ADD THIS
+		]);
 
-        $user = User::create([
-            'name' => 'Test User',
-            'email' => 'user@example.com',
-            'password' => bcrypt('userpassword'),
-        ]);
+		$user = User::create([
+			'name'     => 'Test User',
+			'email'    => 'user@example.com',
+			'password' => bcrypt('userpassword'),
+			'role'     => 'user',    // ← ADD THIS
+		]);
 
         Profile::create([
             'user_id' => $admin->id,

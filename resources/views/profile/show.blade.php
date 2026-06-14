@@ -1,16 +1,15 @@
 <x-layout>
     <x-slot name="title">{{ $user->name }}</x-slot>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    @if(session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
-
     <div class="card mb-4">
         <div class="card-body">
-            <h2>{{ $user->name }}</h2>
+            <div class="d-flex align-items-center mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-person-circle me-3 text-primary" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+                <h2 class="mb-0">{{ $user->name }}</h2>
+            </div>
             @if($user->profile)
                 <p><strong>Pilsēta:</strong> {{ $user->profile->city ?? '—' }}</p>
                 <p><strong>Par mani:</strong> {{ $user->profile->bio ?? '—' }}</p>
@@ -40,7 +39,13 @@
     @forelse($user->reviews as $review)
         <div class="card mb-2">
             <div class="card-body">
-                <strong>{{ $review->reviewer->name }}</strong>
+                <a href="{{ route('profile.show', $review->reviewer) }}" class="text-decoration-none d-inline-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle me-1" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                    </svg>
+                    <strong>{{ $review->reviewer->name }}</strong>
+                </a>
                 — ⭐ {{ $review->rating }}/5
                 <p class="mb-0">{{ $review->content }}</p>
                 @auth

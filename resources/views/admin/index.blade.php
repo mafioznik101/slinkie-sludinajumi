@@ -1,10 +1,6 @@
 <x-layout>
     <x-slot name="title">Admina panelis</x-slot>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
     <h2>Admina panelis</h2>
 
     <h4 class="mt-4">Lietotāji ({{ $users->count() }})</h4>

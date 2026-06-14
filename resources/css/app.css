@@ -7,3 +7,55 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Custom Color Palette */
+:root {
+    --color-white-shade: #fbfef9;
+    --color-black-shade: #191923;
+    --color-blue-shade: #0e79b2;
+}
+
+body {
+    background-color: var(--color-white-shade);
+    color: var(--color-black-shade);
+}
+
+.navbar-custom {
+    background-color: var(--color-black-shade) !important;
+}
+
+.btn-primary-custom {
+    background-color: var(--color-blue-shade);
+    border-color: var(--color-blue-shade);
+    color: var(--color-white-shade);
+}
+
+.btn-primary-custom:hover {
+    background-color: #0a5d8a;
+    border-color: #0a5d8a;
+    color: var(--color-white-shade);
+}
+
+.card-custom {
+    background-color: var(--color-white-shade);
+    border: 1px solid #e0e0e0;
+}
+
+.card-custom:hover {
+    box-shadow: 0 4px 12px rgba(14, 121, 178, 0.15);
+    transition: box-shadow 0.3s ease;
+}
+
+.text-primary-custom {
+    color: var(--color-blue-shade);
+}
+
+.bg-primary-custom {
+    background-color: var(--color-blue-shade);
+}
+
+.alert-success-custom {
+    background-color: #d4edda;
+    border-color: var(--color-blue-shade);
+    color: var(--color-black-shade);
+}

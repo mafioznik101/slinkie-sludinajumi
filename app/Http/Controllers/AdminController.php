@@ -22,17 +22,18 @@ class AdminController extends Controller
         return view('admin.index', compact('users', 'posts'));
     }
 
-    public function blockUser(User $user)
-    {
-        $this->requireAdmin();
+	public function blockUser(User $user)
+	{
+		$this->requireAdmin();
 
-        $user->update(['is_blocked' => !$user->is_blocked]);
+		$newState = !$user->is_blocked;
+		$user->update(['is_blocked' => $newState]);
 
-        return back()->with(
-            'success',
-            $user->is_blocked ? 'Lietotājs bloķēts.' : 'Lietotājs atbloķēts.'
-        );
-    }
+		return back()->with(
+			'success',
+			$newState ? 'Lietotājs bloķēts.' : 'Lietotājs atbloķēts.'
+		);
+	}
 
     public function destroyUser(User $user)
     {

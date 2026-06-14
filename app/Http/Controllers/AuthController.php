@@ -38,22 +38,25 @@ class AuthController extends Controller
         return redirect()->route('posts.index');
     }
 
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+	public function login(Request $request)
+	{
+		$credentials = $request->validate([
+			'email'    => 'required|email',
+			'password' => 'required',
+		]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended(route('posts.index'));
-        }
+		if (Auth::attempt($credentials)) {
+			if (Auth::user()->is_blocked) {
+				Auth::logout();
+				return back()->withErrors(['email' => 'Šis konts ir bloķēts.']);
+			}
 
-        return back()->withErrors([
-            'email' => 'Nepareizs e-pasts vai parole.',
-        ])->onlyInput('email');
-    }
+			$request->session()->regenerate();
+			return redirect()->intended(route('posts.index'));
+		}
+
+		return back()->withErrors(['email' => 'Nepareizs e-pasts vai parole.']);
+	}
 
     public function logout(Request $request)
     {

@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -36,11 +37,29 @@ class PostController extends Controller
             'description' => 'required|string|min:10',
             'type' => 'required|in:service,job',
             'category_id' => 'required|exists:categories,id',
+            'title_image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'sub_images' => 'nullable|array|max:3',
+            'sub_images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        Post::create($validated + [
+        $titleImagePath = $request->file('title_image')->store('posts', 'public');
+
+        $subImages = [];
+        if ($request->hasFile('sub_images')) {
+            foreach ($request->file('sub_images') as $image) {
+                $subImages[] = $image->store('posts', 'public');
+            }
+        }
+
+        Post::create([
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'type' => $validated['type'],
+            'category_id' => $validated['category_id'],
             'user_id' => Auth::id(),
             'is_active' => true,
+            'title_image' => $titleImagePath,
+            'sub_images' => $subImages,
         ]);
 
         return redirect()->route('posts.index')->with('success', 'Sludinājums izveidots veiksmīgi.');
@@ -70,15 +89,41 @@ class PostController extends Controller
             'type' => 'required|in:service,job',
             'category_id' => 'required|exists:categories,id',
             'is_active' => 'nullable|boolean',
+            'title_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'sub_images' => 'nullable|array|max:3',
+            'sub_images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        $post->update([
+        $data = [
             'title' => $validated['title'],
             'description' => $validated['description'],
             'type' => $validated['type'],
             'category_id' => $validated['category_id'],
             'is_active' => $request->has('is_active'),
-        ]);
+        ];
+
+        if ($request->hasFile('title_image')) {
+            if ($post->title_image) {
+                Storage::disk('public')->delete($post->title_image);
+            }
+            $data['title_image'] = $request->file('title_image')->store('posts', 'public');
+        }
+
+        if ($request->hasFile('sub_images')) {
+            if (is_array($post->sub_images)) {
+                foreach ($post->sub_images as $image) {
+                    Storage::disk('public')->delete($image);
+                }
+            }
+
+            $subImages = [];
+            foreach ($request->file('sub_images') as $image) {
+                $subImages[] = $image->store('posts', 'public');
+            }
+            $data['sub_images'] = $subImages;
+        }
+
+        $post->update($data);
 
         return redirect()->route('posts.show', $post)->with('success', 'Sludinājums atjaunināts.');
     }

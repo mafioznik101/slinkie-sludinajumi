@@ -1,34 +1,34 @@
 <x-layout>
-    <x-slot name="title">Reģistrācija</x-slot>
+    <x-slot name="title">{{ __('messages.register') }}</x-slot>
 
-    <h1 class="mb-4">Reģistrācija</h1>
+    <h1 class="mb-4 text-primary-custom">{{ __('messages.register') }}</h1>
 
-    <form action="{{ route('register') }}" method="POST">
+    <form action="{{ route('register') }}" method="POST" class="card-custom p-4 shadow-sm" style="max-width: 500px;">
         @csrf
 
         <div class="mb-3">
-            <label class="form-label">Vārds</label>
-            <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+            <label class="form-label fw-bold" style="color: #191923;">{{ __('messages.name') }}</label>
+            <input type="text" name="name" class="form-control" value="{{ old('name') }}" style="border-color: #0e79b2;">
             @error('name') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
         <div class="mb-3">
-            <label class="form-label">E-pasts</label>
-            <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+            <label class="form-label fw-bold" style="color: #191923;">{{ __('messages.email') }}</label>
+            <input type="email" name="email" class="form-control" value="{{ old('email') }}" style="border-color: #0e79b2;">
             @error('email') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Parole</label>
-            <input type="password" name="password" class="form-control">
+            <label class="form-label fw-bold" style="color: #191923;">{{ __('messages.password') }}</label>
+            <input type="password" name="password" class="form-control" style="border-color: #0e79b2;">
             @error('password') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Apstiprini paroli</label>
-            <input type="password" name="password_confirmation" class="form-control">
+            <label class="form-label fw-bold" style="color: #191923;">{{ __('messages.password_confirmation') }}</label>
+            <input type="password" name="password_confirmation" class="form-control" style="border-color: #0e79b2;">
         </div>
 
-        <button type="submit" class="btn btn-primary">Reģistrēties</button>
+        <button type="submit" class="btn btn-primary-custom">{{ __('messages.register') }}</button>
     </form>
 </x-layout>

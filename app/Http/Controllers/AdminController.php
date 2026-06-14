@@ -4,43 +4,51 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function __construct()
+    private function requireAdmin(): void
     {
-        $this->middleware(function ($request, $next) {
-            if (!$request->user() || !$request->user()->isAdmin()) {
-                abort(403, 'Tikai administratoriem.');
-            }
-            return $next($request);
-        });
+        abort_unless(auth()->user()?->isAdmin(), 403, 'Tikai administratoriem.');
     }
 
     public function index()
     {
+        $this->requireAdmin();
+
         $users = User::withCount('posts')->latest()->get();
         $posts = Post::with(['user', 'category'])->latest()->get();
+
         return view('admin.index', compact('users', 'posts'));
     }
 
     public function blockUser(User $user)
     {
+        $this->requireAdmin();
+
         $user->update(['is_blocked' => !$user->is_blocked]);
-        $msg = $user->is_blocked ? 'Lietotājs bloķēts.' : 'Lietotājs atbloķēts.';
-        return back()->with('success', $msg);
+
+        return back()->with(
+            'success',
+            $user->is_blocked ? 'Lietotājs bloķēts.' : 'Lietotājs atbloķēts.'
+        );
     }
 
     public function destroyUser(User $user)
     {
+        $this->requireAdmin();
+
         $user->delete();
+
         return back()->with('success', 'Lietotājs dzēsts.');
     }
 
     public function destroyPost(Post $post)
     {
+        $this->requireAdmin();
+
         $post->delete();
+
         return back()->with('success', 'Sludinājums dzēsts.');
     }
 }

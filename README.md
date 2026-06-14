@@ -10,6 +10,14 @@
 MYSQL 8.2.0 3306
 NGINX 1.25.3 80, 443
 PHP 8.3.1 830
+
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan storage:link
+npm run build
+php artisan serve
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

@@ -32,6 +32,7 @@ DB_USERNAME=root <br>
 DB_PASSWORD= <br>
 
 1. Izpako uz C:\wamp64\www\ <br>
+composer install <br>
 2. Pielabo .env → DB_DATABASE, DB_PASSWORD ja vajag <br>
 3. php artisan migrate --seed <br>
 4. php artisan storage:link <br>

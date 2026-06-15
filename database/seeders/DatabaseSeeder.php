@@ -172,43 +172,43 @@ class DatabaseSeeder extends Seeder
 
         // Create Reviews
         Review::create([
-            'user_id' => $user->id,
-            'profile_id' => $user2Profile->id,
+            'reviewer_id' => $user->id,
+            'user_id' => $user2->id,
             'rating' => 5,
             'content' => 'Izcils santehniķis! Ātri un kvalitatīvi izpildīja darbu. Noteikti ieteikšu citiem.',
         ]);
 
         Review::create([
-            'user_id' => $admin->id,
-            'profile_id' => $user2Profile->id,
+            'reviewer_id' => $admin->id,
+            'user_id' => $user2->id,
             'rating' => 4,
             'content' => 'Labs speciālists, bet nedaudz kavējās ar termiņiem.',
         ]);
 
         Review::create([
-            'user_id' => $user->id,
-            'profile_id' => $user3Profile->id,
+            'reviewer_id' => $user->id,
+            'user_id' => $user3->id,
             'rating' => 5,
             'content' => 'Brīnišķīgs dizains! Anna ir ļoti radoša un profesionāla.',
         ]);
 
         Review::create([
-            'user_id' => $user2->id,
-            'profile_id' => $user3Profile->id,
+            'reviewer_id' => $user2->id,
+            'user_id' => $user3->id,
             'rating' => 5,
             'content' => 'Izstrādāja logo manam uzņēmumam. Rezultāts pārsniedza cerības!',
         ]);
 
         Review::create([
-            'user_id' => $user3->id,
-            'profile_id' => $userProfile->id,
+            'reviewer_id' => $user3->id,
+            'user_id' => $user->id,
             'rating' => 4,
             'content' => 'Patīkama sadarbība, ātri atbild uz ziņām.',
         ]);
 
         Review::create([
-            'user_id' => $user2->id,
-            'profile_id' => $adminProfile->id,
+            'reviewer_id' => $user2->id,
+            'user_id' => $admin->id,
             'rating' => 5,
             'content' => 'Profesionāla pieeja un skaidra komunikācija.',
         ]);
